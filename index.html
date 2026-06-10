@@ -13,184 +13,91 @@
         min-height: 100vh; min-height: 100dvh;
         display: flex;
         flex-direction: column;
-        overflow-x: hidden;
     }
     header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 28px 44px;
+        padding: 24px 36px;
         background: rgba(0,0,0,0.25);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .logo {
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        color: #fff;
-    }
+    .logo { font-size: 20px; font-weight: 800; letter-spacing: 1.5px; color: #fff; }
     .logo span { color: #007aff; }
     .live-badge {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         background: rgba(0,122,255,0.12);
         border: 1px solid rgba(0,122,255,0.25);
-        padding: 7px 18px;
+        padding: 6px 16px;
         border-radius: 30px;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: #4da6ff;
         letter-spacing: 1px;
     }
     .dot {
-        width: 10px; height: 10px;
+        width: 8px; height: 8px;
         border-radius: 50%;
         background: #007aff;
-        box-shadow: 0 0 15px #007aff;
+        box-shadow: 0 0 12px #007aff;
         animation: pulse 1.5s infinite;
     }
     @keyframes pulse {
         0% { box-shadow: 0 0 0 0 rgba(0,122,255,0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(0,122,255,0); }
+        70% { box-shadow: 0 0 0 12px rgba(0,122,255,0); }
         100% { box-shadow: 0 0 0 0 rgba(0,122,255,0); }
     }
-    main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 36px 20px;
-        text-align: center;
-    }
-    .visualizer {
-        display: flex;
-        align-items: flex-end;
-        gap: 5px;
-        height: 56px;
-        margin-bottom: 32px;
-        opacity: 0.5;
-        transition: opacity 0.4s;
-    }
+    main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px 16px; text-align: center; }
+    .visualizer { display: flex; align-items: flex-end; gap: 4px; height: 44px; margin-bottom: 24px; opacity: 0.5; transition: opacity 0.4s; }
     .visualizer.active { opacity: 1; }
-    .bar {
-        width: 7px;
-        background: #007aff;
-        border-radius: 3px 3px 0 0;
-        animation: bounce 1.2s ease-in-out infinite;
-        box-shadow: 0 0 8px rgba(0,122,255,0.4);
-    }
-    .visualizer.active .bar { box-shadow: 0 0 14px rgba(0,122,255,0.7); }
-    .bar:nth-child(1) { height: 18px; animation-delay: 0.1s; }
-    .bar:nth-child(2) { height: 46px; animation-delay: 0.3s; }
-    .bar:nth-child(3) { height: 28px; animation-delay: 0s; }
-    .bar:nth-child(4) { height: 56px; animation-delay: 0.2s; }
-    .bar:nth-child(5) { height: 36px; animation-delay: 0.4s; }
-    @keyframes bounce {
-        0%, 100% { transform: scaleY(0.5); }
-        50% { transform: scaleY(1); }
-    }
-    .song-info {
-        max-width: 720px;
-        width: 100%;
-        margin-bottom: 40px;
-    }
-    #meta {
-        font-size: 14px;
-        color: #888;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 12px;
-        font-weight: 600;
-        min-height: 20px;
-        transition: color 0.3s;
-    }
+    .bar { width: 6px; background: #007aff; border-radius: 3px 3px 0 0; animation: bounce 1.2s ease-in-out infinite; box-shadow: 0 0 6px rgba(0,122,255,0.4); }
+    .visualizer.active .bar { box-shadow: 0 0 12px rgba(0,122,255,0.7); }
+    .bar:nth-child(1) { height: 14px; animation-delay: 0.1s; }
+    .bar:nth-child(2) { height: 36px; animation-delay: 0.3s; }
+    .bar:nth-child(3) { height: 22px; animation-delay: 0s; }
+    .bar:nth-child(4) { height: 44px; animation-delay: 0.2s; }
+    .bar:nth-child(5) { height: 28px; animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1); } }
+    .song-info { max-width: 600px; width: 100%; margin-bottom: 28px; }
+    #meta { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-weight: 600; min-height: 18px; transition: color 0.3s; }
     #meta.ready { color: #4da6ff; }
-    #info {
-        font-size: clamp(28px, 4.5vw, 56px);
-        font-weight: 900;
-        line-height: 1.2;
-        color: #fff;
-        margin-bottom: 16px;
-        text-shadow: 0 0 40px rgba(255,255,255,0.08);
-        word-wrap: break-word;
-        transition: opacity 0.3s;
-    }
-    .subtitle {
-        color: #666;
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-    .player-section {
-        width: 100%;
-        max-width: 560px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
-        padding: 24px;
-        border-radius: 20px;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-    }
-    audio {
-        width: 100%;
-        height: 52px;
-        border-radius: 10px;
-        outline: none;
-    }
+    #info { font-size: clamp(24px, 4vw, 48px); font-weight: 900; line-height: 1.2; color: #fff; margin-bottom: 12px; text-shadow: 0 0 30px rgba(255,255,255,0.08); word-wrap: break-word; }
+    .subtitle { color: #666; font-size: 12px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+    .player-section { width: 100%; max-width: 500px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 18px; border-radius: 16px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+    audio { width: 100%; height: 48px; border-radius: 8px; outline: none; }
     audio::-webkit-media-controls-panel { background: #f0f0f8; }
-    #lst {
-        display: inline-block;
-        background: rgba(0,122,255,0.08);
-        color: #4da6ff;
-        padding: 8px 16px;
-        border-radius: 10px;
-        font-size: 13px;
-        font-weight: 600;
-        border: 1px solid rgba(0,122,255,0.15);
-        transition: opacity 0.3s;
-    }
-    footer {
-        padding: 18px;
-        text-align: center;
-        border-top: 1px solid rgba(255,255,255,0.04);
-        margin-top: auto;
-    }
-    @media (max-width: 640px) {
-        header { padding: 16px 18px; flex-direction: column; gap: 12px; }
-        .logo { font-size: 18px; }
-        .live-badge { font-size: 11px; padding: 5px 14px; }
-        .player-section { padding: 16px; border-radius: 14px; width: 95%; }
-        main { padding: 24px 10px; }
-        .visualizer { height: 40px; margin-bottom: 20px; }
+    #url { display: none; margin-top: 12px; padding: 12px 16px; background: rgba(0,122,255,0.1); border: 1px solid rgba(0,122,255,0.3); border-radius: 12px; font-size: 15px; font-weight: 700; color: #4da6ff; word-break: break-all; text-align: center; }
+    #url a { color: #4da6ff; text-decoration: none; }
+    #url span { display: block; font-size: 11px; color: #888; font-weight: 400; margin-top: 4px; }
+    footer { padding: 14px; text-align: center; border-top: 1px solid rgba(255,255,255,0.04); }
+    #lst { display: inline-block; background: rgba(0,122,255,0.08); color: #4da6ff; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; border: 1px solid rgba(0,122,255,0.15); }
+    @media (max-width: 480px) {
+        header { padding: 14px 16px; flex-direction: column; gap: 8px; }
+        .logo { font-size: 16px; }
+        .live-badge { font-size: 10px; padding: 4px 12px; }
+        .player-section { padding: 12px; width: 98%; }
+        main { padding: 16px 8px; }
+        .visualizer { height: 32px; margin-bottom: 16px; }
         .bar { width: 5px; }
-        .bar:nth-child(2) { height: 32px; }
-        .bar:nth-child(4) { height: 40px; }
-        .bar:nth-child(5) { height: 26px; }
-        #info { font-size: clamp(22px, 6vw, 32px); }
+        .bar:nth-child(2) { height: 26px; }
+        .bar:nth-child(4) { height: 32px; }
+        .bar:nth-child(5) { height: 20px; }
+        #info { font-size: clamp(18px, 5vw, 28px); }
     }
 </style>
 </head>
 <body>
     <header>
         <div class="logo">MEHMET <span>SAM</span></div>
-        <div class="live-badge">
-            <div class="dot"></div>
-            CANLI YAYIN
-        </div>
+        <div class="live-badge"><div class="dot"></div>CANLI YAYIN</div>
     </header>
     <main>
         <div class="visualizer" id="VZ">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
         <div class="song-info">
             <div id="meta">Baglaniyor</div>
@@ -199,6 +106,7 @@
         </div>
         <div class="player-section">
             <audio id="A" controls preload="auto" playsinline webkit-playsinline></audio>
+            <div id="url"></div>
         </div>
     </main>
     <footer>
@@ -208,56 +116,54 @@
 (function(){
 var A=document.getElementById('A'),I=document.getElementById('info'),
 M=document.getElementById('meta'),L=document.getElementById('lst'),
-VZ=document.getElementById('VZ');
-var FOUND=false,STREAM="";
-
+VZ=document.getElementById('VZ'),U=document.getElementById('url');
+var F=false,S="";
 var SI="192.168.1.39";
-if(SI){baslat(SI)}else{setTimeout(tara,200)}
 
-function baslat(ip){
-  if(FOUND)return;FOUND=true;
-  STREAM='http://'+ip+':8000/stream';
-  A.src=STREAM;A.load();
-  M.textContent='Hazir, oynat tusuna bas';M.className='ready';
-  guncel();setInterval(guncel,3000);
-}
-function guncel(){
-  var s=document.createElement('script');
-  s.src=STREAM.replace('/stream','/info.js')+'?_='+Date.now();
-  s.onload=function(){
-    var d=window.RI||{};
-    if(d.s){I.textContent=d.s;M.textContent='SU AN CALIYOR';M.className='ready'}
-    if(d.l!=null)L.textContent='Dinleyici: '+d.l;
-    try{s.parentNode.removeChild(s)}catch(e){}};
-  document.head.appendChild(s);
-}
+function g(){setTimeout(function(){
+var s=document.createElement('script');
+s.src=S.replace('/stream','/info.js')+'?_='+Date.now();
+s.onload=function(){var d=window.RI||{};if(d.s){I.textContent=d.s;M.textContent='SU AN CALIYOR';M.className='ready'}if(d.l!=null)L.textContent='Dinleyici: '+d.l;try{s.parentNode.removeChild(s)}catch(e){}};
+document.head.appendChild(s);},500);setInterval(function(){
+var s=document.createElement('script');
+s.src=S.replace('/stream','/info.js')+'?_='+Date.now();
+s.onload=function(){var d=window.RI||{};if(d.s)I.textContent=d.s;if(d.l!=null)L.textContent='Dinleyici: '+d.l;try{s.parentNode.removeChild(s)}catch(e){}};
+document.head.appendChild(s);},3000)}
+
+function bas(ip){
+if(F)return;F=true;S='http://'+ip+':8000/stream';
+A.src=S;A.load();M.textContent='Baglaniyor...';
+U.style.display='none';
+setTimeout(function(){if(!F)return;if(A.readyState===0){
+U.style.display='block';
+U.innerHTML='<a href="http://'+ip+':8000/" target="_blank">http://'+ip+':8000/</a><span>Telefonda bu adresi ac, bookmarkla</span>';
+M.textContent='Telefonda adrese tikla';I.textContent='Radyoyu ac';}},5000);
+g();}
 function tara(){
-  if(FOUND)return;
-  var H=['localhost','127.0.0.1'];
-  for(var a=1;a<=254;a++)H.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,'192.168.2.'+a,'192.168.10.'+a);
-  var idx=0,done=false;
-  function bitir(){if(done||FOUND)return;done=true;M.textContent='Sunucu bulunamadi - once sec.py calistir';}
-  function dene(ip){
-    var s=document.createElement('script');
-    s.src='http://'+ip+':8000/info.js?_='+Date.now();
-    s.onload=function(){baslat(ip)};document.head.appendChild(s);}
-  function next(){
-    if(FOUND||idx>=H.length){if(!FOUND)bitir();return}
-    for(var i=0;i<10&&idx<H.length;i++,idx++)dene(H[idx]);
-    setTimeout(next,80);}
-  setTimeout(function(){if(!FOUND)bitir()},15000);
-  next();
-}
+if(F)return;
+var H=['localhost','127.0.0.1'];
+for(var a=1;a<=254;a++)H.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,'192.168.2.'+a,'192.168.10.'+a);
+var k=0,z=false,T=null;
+function bit(){if(z||F)return;z=true;M.textContent='Telefonda adrese tikla';}
+function de(ip,t){
+t.onloadeddata=function(){if(!F){clearTimeout(T);bas(ip)}};
+t.onerror=function(){if(!F){clearTimeout(T);bit();}};
+t.src='http://'+ip+':8000/stream';t.load();}
+function next(){
+if(F||k>=H.length){if(!F&&!z){bit()}return}
+for(var i=0;i<8&&k<H.length;i++,k++)(function(ip){
+var t=new Audio();T=setTimeout(function(){t.src='';k++;next()},1200);
+de(ip,t)})(H[k]);
+setTimeout(next,100);}
+setTimeout(function(){if(!F&&!z)bit()},18000);
+next();}
+
+if(SI){bas(SI)}else{setTimeout(tara,200)}
 A.onplay=function(){VZ.classList.add('active')};
 A.onpause=function(){VZ.classList.remove('active')};
 A.onerror=function(){
-  M.textContent='Baglanti koptu, yeniden...';M.className='';
-  setTimeout(function(){
-    if(STREAM){
-      var was=!A.paused;var base=STREAM.split('?')[0];
-      A.src=base+'?r='+Date.now();A.load();
-      if(was)setTimeout(function(){A.play().catch(function(){})},600);
-      M.textContent='Yeniden baglandi';M.className='ready';}},2500);};
+if(A.readyState===0&&S){U.style.display='block';U.innerHTML='<a href="'+S.replace('/stream','')+'/" target="_blank">'+S.replace('/stream','')+'/</a><span>Adrese tikla</span>';M.textContent='Adrese tikla';return}
+setTimeout(function(){if(S){var w=!A.paused;var b=S.split('?')[0];A.src=b+'?r='+Date.now();A.load();if(w)setTimeout(function(){A.play().catch(function(){})},600);}},2500);};
 A.volume=0.8;
 })();
 </script>
