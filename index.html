@@ -1,242 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MŞ Radyo — MehmetŞam Anadolu ve Meslek Lisesi</title>
+<title>Okul Radyo</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#03060f;color:#e8eeff;min-height:100vh;display:flex;flex-direction:column}
-
-header{background:#060c1c;border-bottom:1px solid #1a2540;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
-.logo{display:flex;align-items:center;gap:12px}
-.logo-icon{width:36px;height:36px;background:#1a56db;border-radius:8px;display:flex;align-items:center;justify-content:center}
-.logo-icon svg{width:20px;height:20px;fill:white}
-.logo-text{font-size:15px;font-weight:600;color:#e8eeff;letter-spacing:-0.2px}
-.logo-sub{font-size:11px;color:#5a6a9a;font-weight:400;margin-top:1px}
-nav{display:flex;gap:4px}
-nav a{font-size:13px;color:#8899cc;padding:6px 14px;border-radius:6px;text-decoration:none;transition:all .15s}
-nav a:hover{color:#e8eeff;background:rgba(255,255,255,.06)}
-nav a.active{color:#e8eeff;background:rgba(26,86,219,.2)}
-
-.hero{padding:48px 32px 32px;max-width:900px;margin:0 auto;width:100%}
-.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25);color:#f87171;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:20px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#f87171;animation:pulse 1.4s ease infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(248,113,113,.6)}70%{box-shadow:0 0 0 8px rgba(248,113,113,0)}100%{box-shadow:0 0 0 0 rgba(248,113,113,0)}}
-
-.main-player{background:#060c1c;border:1px solid #1a2540;border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:28px;margin-bottom:24px}
-.album-art{width:88px;height:88px;border-radius:12px;background:linear-gradient(135deg,#0f2060 0%,#1a56db 100%);flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.album-art-inner{display:flex;flex-direction:column;align-items:center;gap:4px}
-.album-art svg{width:32px;height:32px;fill:rgba(255,255,255,.9)}
-.album-label{font-size:9px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.6);text-transform:uppercase}
-.track-info{flex:1;min-width:0}
-.track-title{font-size:22px;font-weight:600;color:#e8eeff;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.track-meta{font-size:13px;color:#5a6a9a;margin-bottom:16px}
-.player-controls{display:flex;align-items:center;gap:16px}
-.btn-play{width:44px;height:44px;border-radius:50%;background:#1a56db;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.btn-play:hover{background:#2563eb;transform:scale(1.04)}
-.btn-play svg{width:18px;height:18px;fill:white;margin-left:2px}
-.btn-play.playing svg{margin-left:0}
-audio{display:none}
-.vol-wrap{display:flex;align-items:center;gap:8px;flex:1}
-.vol-icon svg{width:16px;height:16px;fill:#5a6a9a}
-input[type=range].vol{-webkit-appearance:none;height:4px;background:#1a2540;border-radius:2px;flex:1;outline:none;cursor:pointer}
-input[type=range].vol::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#1a56db;cursor:pointer}
-.listener-count{display:flex;align-items:center;gap:6px;font-size:12px;color:#5a6a9a;white-space:nowrap}
-.listener-count svg{width:14px;height:14px;fill:#5a6a9a}
-
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.stat-card{background:#060c1c;border:1px solid #1a2540;border-radius:12px;padding:16px 20px}
-.stat-label{font-size:11px;color:#5a6a9a;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.stat-val{font-size:20px;font-weight:600;color:#e8eeff}
-.stat-sub{font-size:11px;color:#3a4a7a;margin-top:2px}
-
-.section-title{font-size:13px;font-weight:600;color:#5a6a9a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
-.schedule-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
-.schedule-item{background:#060c1c;border:1px solid #1a2540;border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:16px;transition:border-color .15s}
-.schedule-item:hover{border-color:#2a3a60}
-.schedule-item.current{border-color:#1a56db;background:rgba(26,86,219,.06)}
-.sch-time{font-size:12px;font-weight:600;color:#5a6a9a;min-width:80px;font-variant-numeric:tabular-nums}
-.sch-time.now{color:#60a5fa}
-.sch-info{flex:1}
-.sch-name{font-size:14px;font-weight:500;color:#c8d8ff;margin-bottom:2px}
-.sch-dj{font-size:12px;color:#5a6a9a}
-.sch-badge{font-size:10px;font-weight:600;letter-spacing:.06em;padding:3px 9px;border-radius:12px;text-transform:uppercase}
-.sch-badge.live{background:rgba(26,86,219,.2);color:#60a5fa;border:1px solid rgba(26,86,219,.3)}
-.sch-badge.next{background:rgba(255,255,255,.05);color:#5a6a9a;border:1px solid #1a2540}
-
-footer{margin-top:auto;border-top:1px solid #0f1628;padding:20px 32px;text-align:center;font-size:12px;color:#2a3a5a}
-footer span{color:#3a5090}
-
-@media(max-width:640px){
-  header{padding:0 16px}
-  nav{display:none}
-  .hero{padding:24px 16px}
-  .main-player{flex-direction:column;align-items:flex-start;gap:20px;padding:20px}
-  .stats-row{grid-template-columns:1fr 1fr}
-}
+*{margin:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:#0b0f1a;color:#e9ecff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.card{background:rgba(255,255,255,.05);border-radius:20px;padding:30px;max-width:460px;width:100%;text-align:center}
+h1{font-size:26px;margin-bottom:6px}
+.sub{color:#888;font-size:14px;margin-bottom:20px}
+.status{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px}
+.dot{width:10px;height:10px;border-radius:50%;background:#ff2d55;animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,45,85,.7)}70%{box-shadow:0 0 0 12px rgba(255,45,85,0)}100%{box-shadow:0 0 0 0 rgba(255,45,85,0)}}
+#info{font-size:18px;font-weight:600;margin-bottom:8px}
+#meta{color:#888;font-size:13px;margin-bottom:25px}
+audio{width:100%;margin-bottom:15px}
+#lst{color:#666;font-size:12px}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 2c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7zm0 2a5 5 0 100 10A5 5 0 0012 7zm0 2a3 3 0 110 6 3 3 0 010-6zm0 1.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/></svg>
-    </div>
-    <div>
-      <div class="logo-text">MŞ Radyo</div>
-      <div class="logo-sub">MehmetŞam Anadolu ve Meslek Lisesi</div>
-    </div>
-  </div>
-  <nav>
-    <a href="#" class="active">Canlı Yayın</a>
-    <a href="#">Program</a>
-    <a href="#">Hakkında</a>
-  </nav>
-</header>
-
-<div class="hero">
-  <div class="live-badge">
-    <span class="live-dot"></span>
-    Canlı Yayın
-  </div>
-
-  <div class="main-player">
-    <div class="album-art">
-      <div class="album-art-inner">
-        <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 2c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7zm0 2a5 5 0 100 10A5 5 0 0012 7zm0 2a3 3 0 110 6 3 3 0 010-6zm0 1.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/></svg>
-        <span class="album-label">MŞ FM</span>
-      </div>
-    </div>
-    <div class="track-info">
-      <div class="track-title" id="info">Yayın bekleniyor...</div>
-      <div class="track-meta" id="meta">Bağlanıyor</div>
-      <div class="player-controls">
-        <button class="btn-play" id="playBtn" onclick="togglePlay()">
-          <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <div class="vol-wrap">
-          <div class="vol-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-          </div>
-          <input type="range" class="vol" id="vol" min="0" max="100" value="80" oninput="setVol(this.value)">
-        </div>
-        <div class="listener-count">
-          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-          <span id="lst">—</span>
-        </div>
-      </div>
-    </div>
-    <audio id="audio" preload="none"></audio>
-  </div>
-
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">Frekans</div>
-      <div class="stat-val">MŞ FM</div>
-      <div class="stat-sub">Online Yayın</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Yayın Saatleri</div>
-      <div class="stat-val">08:00 – 17:00</div>
-      <div class="stat-sub">Hafta içi</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Kuruluş</div>
-      <div class="stat-val">MŞ Lisesi</div>
-      <div class="stat-sub">Okul Radyosu</div>
-    </div>
-  </div>
-
-  <div class="section-title">Bugünün Programı</div>
-  <div class="schedule-grid">
-    <div class="schedule-item">
-      <div class="sch-time">08:00</div>
-      <div class="sch-info"><div class="sch-name">Sabah Müziği</div><div class="sch-dj">Okul Radyosu Ekibi</div></div>
-      <span class="sch-badge next">Bitti</span>
-    </div>
-    <div class="schedule-item current">
-      <div class="sch-time now">10:00</div>
-      <div class="sch-info"><div class="sch-name">Ara Teneffüs Yayını</div><div class="sch-dj">DJ Emre & Zeynep</div></div>
-      <span class="sch-badge live">Şu An</span>
-    </div>
-    <div class="schedule-item">
-      <div class="sch-time">12:00</div>
-      <div class="sch-info"><div class="sch-name">Öğle Arası Hits</div><div class="sch-dj">DJ Selin</div></div>
-      <span class="sch-badge next">Sıradaki</span>
-    </div>
-    <div class="schedule-item">
-      <div class="sch-time">14:30</div>
-      <div class="sch-info"><div class="sch-name">Okul Haberleri & Müzik</div><div class="sch-dj">Haber Ekibi</div></div>
-      <span class="sch-badge next">Bekliyor</span>
-    </div>
-    <div class="schedule-item">
-      <div class="sch-time">16:00</div>
-      <div class="sch-info"><div class="sch-name">Günün Kapanış Yayını</div><div class="sch-dj">DJ Mert</div></div>
-      <span class="sch-badge next">Bekliyor</span>
-    </div>
-  </div>
+<div class="card">
+<div class="status"><span class="dot"></span><span>CANLI YAYIN</span></div>
+<h1>Okul Radyo</h1>
+<div class="sub">DJ'in sectigi sarki herkeste ayni anda calar</div>
+<div id="info">Araniyor...</div>
+<div id="meta">Sunucu taranıyor</div>
+<audio id="audio" controls preload="none"></audio>
+<div id="lst">-</div>
 </div>
-
-<footer>
-  <span>MehmetŞam Anadolu ve Meslek Lisesi Radyosu</span> — Tüm hakları saklıdır
-</footer>
-
 <script>
-var audio=document.getElementById('audio');
-var playBtn=document.getElementById('playBtn');
-var playIcon=document.getElementById('playIcon');
-var infoEl=document.getElementById('info');
-var metaEl=document.getElementById('meta');
-var lstEl=document.getElementById('lst');
-var isPlaying=false;
+var A=document.getElementById('audio'),I=document.getElementById('info'),
+M=document.getElementById('meta'),L=document.getElementById('lst');
+var FOUND=false, STREAM="";
 
-audio.src='http://localhost:8000/stream';
+// once localhost dene
+try{
+  var x=new XMLHttpRequest();
+  x.open('GET','http://localhost:8000/ping?_='+Date.now());
+  x.onload=function(){if(x.responseText=='ok'){bul('localhost:8000');return}};
+  x.send();
+}catch(e){}
 
-function togglePlay(){
-  if(isPlaying){
-    audio.pause();
-    isPlaying=false;
-    playBtn.classList.remove('playing');
-    playIcon.innerHTML='<path d="M8 5v14l11-7z"/>';
-    metaEl.textContent='Durduruldu';
-  } else {
-    audio.play().catch(function(){metaEl.textContent='Bağlantı bekleniyor...';});
-    isPlaying=true;
-    playBtn.classList.add('playing');
-    playIcon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-    metaEl.textContent='Bağlanıyor...';
+// subnet tara
+var SUBNETS=[];
+for(var a=1;a<=254;a++){
+  SUBNETS.push('192.168.1.'+a);
+  SUBNETS.push('192.168.0.'+a);
+  SUBNETS.push('10.0.0.'+a);
+}
+var tried=0;
+
+function tara(){
+  if(FOUND||tried>=SUBNETS.length)return;
+  for(var i=0;i<15&&tried<SUBNETS.length;i++,tried++){
+    var ip=SUBNETS[tried];
+    (function(ip){
+      var s=document.createElement('script');
+      s.src='http://'+ip+':8000/info.js?_='+Date.now();
+      s.onload=function(){bul(ip+':8000')};
+      document.head.appendChild(s);
+    })(ip);
   }
+  if(!FOUND)setTimeout(tara,200);
 }
 
-function setVol(v){
-  audio.volume=v/100;
+function bul(host){
+  if(FOUND)return;
+  FOUND=true;STREAM='http://'+host+'/stream';
+  M.textContent='Bulundu! Play tusuna bas';
+  bilgi();
+  setInterval(bilgi,3000);
 }
-audio.volume=0.8;
 
-audio.onerror=function(){
-  metaEl.textContent='Bağlantı sorunu, yeniden deneniyor...';
-  isPlaying=false;
-  playIcon.innerHTML='<path d="M8 5v14l11-7z"/>';
-  playBtn.classList.remove('playing');
-  setTimeout(function(){audio.load();},3000);
-};
-
-function poll(){
+function bilgi(){
   var s=document.createElement('script');
-  s.src='http://localhost:8000/info.js?_='+Date.now();
+  s.src=STREAM.replace('/stream','/info.js')+'?_='+Date.now();
   s.onload=function(){
     var d=window.RI||{};
-    if(d.s){infoEl.textContent=d.s;if(isPlaying)metaEl.textContent='Çalıyor';}
-    if(d.l!=null)lstEl.textContent=d.l+' dinleyici';
+    if(d.s){I.textContent=d.s;M.textContent='Calıyor'}
+    if(d.l!=null)L.textContent='Dinleyici: '+d.l;
   };
   document.head.appendChild(s);
 }
 
-setInterval(poll,3000);
-poll();
+A.onerror=function(){
+  M.textContent='Baglanti sorunu...';
+  setTimeout(function(){if(STREAM){A.src=STREAM+'?r='+Date.now();A.load()}},3000);
+};
+
+setTimeout(function(){
+  if(!FOUND){M.textContent='Ag taranıyor...';tara()}
+},800);
+
+A.onplay=function(){
+  if(STREAM&&A.src!=STREAM){A.src=STREAM;A.load()}
+};
 </script>
-</body>
-</html>
+</body></html>
