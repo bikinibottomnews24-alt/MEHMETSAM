@@ -5,130 +5,79 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>MEHMET SAM | Okul Radyosu</title>
 <style>
-html{background:#000}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background-color:#001a33;background:radial-gradient(circle at 50% 0%,#001a33 0%,#050505 60%,#000 100%);color:#fff;min-height:100vh;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-header{display:flex;justify-content:space-between;align-items:center;padding:24px 36px;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(255,255,255,.05)}
-.logo{font-size:20px;font-weight:800;letter-spacing:1.5px;color:#fff}
-.logo span{color:#007aff}
-.lb{display:flex;align-items:center;gap:8px;background:rgba(0,122,255,.12);border:1px solid rgba(0,122,255,.25);padding:6px 16px;border-radius:30px;font-size:12px;font-weight:600;color:#4da6ff;letter-spacing:1px}
-.dot{width:8px;height:8px;border-radius:50%;background:#007aff;box-shadow:0 0 12px #007aff;animation:pulse 1.5s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,122,255,.7)}70%{box-shadow:0 0 0 12px rgba(0,122,255,0)}100%{box-shadow:0 0 0 0 rgba(0,122,255,0)}}
-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px 16px;text-align:center}
-.viz{display:flex;align-items:flex-end;gap:4px;height:44px;margin-bottom:24px;opacity:.5;transition:opacity .4s}
-.viz.on{opacity:1}
-.b{width:6px;background:#007aff;border-radius:3px 3px 0 0;animation:bounce 1.2s ease-in-out infinite;box-shadow:0 0 6px rgba(0,122,255,.4)}
-.viz.on .b{box-shadow:0 0 12px rgba(0,122,255,.7)}
-.b:nth-child(1){height:14px;animation-delay:.1s}
-.b:nth-child(2){height:36px;animation-delay:.3s}
-.b:nth-child(3){height:22px;animation-delay:0s}
-.b:nth-child(4){height:44px;animation-delay:.2s}
-.b:nth-child(5){height:28px;animation-delay:.4s}
-@keyframes bounce{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
-.si{max-width:600px;width:100%;margin-bottom:28px}
-#m{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;font-weight:600;min-height:18px;transition:color .3s}
-#m.ok{color:#4da6ff}
-#i{font-size:clamp(24px,4vw,48px);font-weight:900;line-height:1.2;color:#fff;margin-bottom:12px;text-shadow:0 0 30px rgba(255,255,255,.08);word-wrap:break-word}
-.st{color:#666;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase}
-.ps{width:100%;max-width:500px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:18px;border-radius:16px}
-audio{width:100%;height:48px;border-radius:8px;outline:none}
-#url{display:none;margin-top:16px;padding:18px 20px;background:#007aff;border-radius:16px;font-size:18px;font-weight:800;text-align:center;box-shadow:0 8px 32px rgba(0,122,255,.4)}
-#url a{display:block;color:#fff;text-decoration:none;word-break:break-all}
-footer{padding:14px;text-align:center;border-top:1px solid rgba(255,255,255,.04)}
-#lst{display:inline-block;background:rgba(0,122,255,.08);color:#4da6ff;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(0,122,255,.15)}
-@media(max-width:480px){
-header{padding:14px 16px;flex-direction:column;gap:8px}
-.logo{font-size:16px}
-.lb{font-size:10px;padding:4px 12px}
-.ps{padding:12px;width:98%}
-main{padding:16px 8px}
-.viz{height:32px;margin-bottom:16px}
-.b{width:5px}
-.b:nth-child(2){height:26px}
-.b:nth-child(4){height:32px}
-.b:nth-child(5){height:20px}
-#i{font-size:clamp(18px,5vw,28px)}
-}
+body{margin:0;background:#001a33;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;min-height:100vh;-webkit-user-select:none;user-select:none}
+header{text-align:center;padding:20px;border-bottom:1px solid rgba(255,255,255,.1)}
+h1{margin:0;font-size:22px;letter-spacing:2px}
+h1 span{color:#007aff}
+.live{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;color:#4da6ff;border:1px solid rgba(0,122,255,.3)}
+.live .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#007aff;margin-right:6px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,122,255,.7)}70%{box-shadow:0 0 0 10px rgba(0,122,255,0)}100%{box-shadow:0 0 0 0 rgba(0,122,255,0)}}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center}
+#info{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;min-height:18px;transition:color .3s}
+#info.ok{color:#4da6ff}
+#song{font-size:clamp(20px,4vw,40px);font-weight:900;margin-bottom:4px;word-wrap:break-word}
+#sub{color:#666;font-size:11px;letter-spacing:2px}
+.player{width:100%;max-width:400px;margin-top:20px;padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+audio{width:100%;height:44px;border-radius:8px;outline:none}
+#listeners{text-align:center;padding:12px;font-size:11px;color:#666;border-top:1px solid rgba(255,255,255,.05)}
 </style>
 </head>
 <body>
-<header><div class="logo">MEHMET <span>SAM</span></div><div class="lb"><div class="dot"></div>CANLI YAYIN</div></header>
+<header><h1>MEHMET <span>SAM</span></h1><div class="live"><span class="dot"></span>CANLI YAYIN</div></header>
 <main>
-<div class="viz" id="V"><div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div></div>
-<div class="si"><div id="m">Yukleniyor</div><h1 id="i">SAM RADYO</h1><div class="st">MEHMET SAM</div></div>
-<div class="ps"><audio id="A" controls playsinline webkit-playsinline></audio><div id="url"></div></div>
+<div id="info">Yukleniyor</div>
+<div id="song">Radyo</div>
+<div id="sub">MEHMET SAM</div>
+<div class="player"><audio id="A" controls playsinline webkit-playsinline preload="auto"></audio></div>
 </main>
-<footer><div id="lst">Dinleyici: --</div></footer>
+<div id="listeners">Dinleyici: --</div>
 <script>
 (function(){
-var A=document.getElementById('A'),I=document.getElementById('i'),
-M=document.getElementById('m'),L=document.getElementById('lst'),
-V=document.getElementById('V'),U=document.getElementById('url');
-var F=false,_q=0,sv="",rt=0;
-var SI="192.168.1.39";
-var mb=/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|webOS/i.test(navigator.userAgent);
+var A=document.getElementById('A'),S=document.getElementById('song'),I=document.getElementById('info'),L=document.getElementById('listeners');
+var sv="",_q=0,F=false,ilk=false;
 
-function g(){
-setTimeout(function(){
-var s=document.createElement('script');
-s.src=sv+'/info.js?_='+Date.now();
-s.onload=function(){try{var d=window.RI||{};if(d.s){I.textContent=d.s;M.textContent='SU AN CALIYOR';M.className='ok'}if(d.l!=null)L.textContent='Dinleyici: '+d.l;if(d.q!=null)_q=d.q;s.parentNode.removeChild(s)}catch(e){}};
-document.head.appendChild(s);},500);
+function poll(){
 setInterval(function(){
 var s=document.createElement('script');
 s.src=sv+'/info.js?_='+Date.now();
-s.onload=function(){try{var d=window.RI||{};if(d.s)I.textContent=d.s;if(d.l!=null)L.textContent='Dinleyici: '+d.l;if(d.q!=null&&d.q!==_q){_q=d.q;A.pause();A.src=sv+'/stream?r='+Date.now();A.load()}s.parentNode.removeChild(s)}catch(e){}};
-document.head.appendChild(s);},1500);
+s.onload=function(){try{var d=window.RI||{};if(d.s&&d.s!==S.textContent){S.textContent=d.s;I.textContent='SU AN CALIYOR';I.className='ok'}if(d.l!=null)L.textContent='Dinleyici: '+d.l;if(d.q!=null&&d.q!==_q){_q=d.q;A.pause();A.src=sv+'/stream?r='+Date.now();A.load();A.oncanplay=function(){A.play().catch(function(){})}}if(!ilk&&d.s){ilk=true}}catch(e){}s.remove()};
+document.head.appendChild(s);},2000);
 }
 
-function gn(b){
-sv=b;F=true;rt=0;
+function baglan(url){
+sv=url;F=true;
+try{localStorage.setItem('radyo_ip',url)}catch(e){}
 A.src=sv+'/stream';A.load();
-A.play().catch(function(){});
-M.textContent='Baglaniyor...';U.style.display='none';
-if(mb)setTimeout(function(){if(A.readyState===0)u(sv+'/')},4000);
-g();
+A.oncanplay=function(){A.play().catch(function(){})};
+I.textContent='Baglaniyor...';
+setTimeout(function(){if(!ilk){A.play().catch(function(){})}},3000);
+poll();
 }
-
-function u(url){U.style.display='block';U.innerHTML='<a href="'+url+'" target="_blank">'+url+'</a>';}
 
 function tara(){
-var ips=[];
-if(SI)ips.push(SI);
-ips.push('localhost','127.0.0.1');
-for(var a=1;a<=254;a++){ips.push('192.168.1.'+a);if(ips.length>50)break}
-var k=0;
+var ips=['localhost','127.0.0.1'];
+if(window.location.hostname&&window.location.hostname!=='localhost'&&window.location.hostname!=='127.0.0.1')ips.push(window.location.hostname);
+for(var a=1;a<=254;a++){ips.push('192.168.0.'+a);if(ips.length<120)ips.push('192.168.1.'+a)}
+var k=0,act=0;
 function next(){
-if(F)return;
-if(k>=ips.length){if(!sv&&!F){M.textContent='Radyo kapali';if(SI)u('http://'+SI+':8000/')}return}
-var ip=ips[k],t=new Audio();
-k++;
-t.onloadeddata=function(){if(!F)gn('http://'+ip+':8000')};
-t.src='http://'+ip+':8000/stream';t.load();
-setTimeout(next,300);
+while(act<5&&k<ips.length){var ip=ips[k++];act++;
+(function(ip2){var x=new XMLHttpRequest();
+x.open('GET','http://'+ip2+':8000/info.js?_='+Date.now(),true);
+x.timeout=500;
+x.onload=function(){act--;if(x.status===200&&!F){baglan('http://'+ip2+':8000')}else{next()}};
+x.onerror=function(){act--;next()};
+x.ontimeout=function(){act--;next()};
+x.send()})(ip);}
+if(act===0&&k>=ips.length&&!F){I.textContent='Radyo kapali';A.play().catch(function(){})}
 }
 next();
 }
 
-if(window.location.protocol==='file:'){
-  M.textContent='Araniyor...';
-  if(mb&&SI)setTimeout(function(){if(!F&&!sv)u('http://'+SI+':8000/')},3000);
-  if(!mb&&SI){gn('http://'+SI+':8000');setTimeout(function(){if(!F)tara()},3000)}
-  else tara();
-} else {
-  gn(window.location.origin);
-}
-
-A.onplay=function(){V.classList.add('on')};
-A.onpause=function(){V.classList.remove('on')};
-A.onerror=function(){
-if(!sv)return;
-if(mb){u(sv+'/');return}
-rt++;if(rt>3)return;
-setTimeout(function(){A.src='';A.load();A.src=sv+'/stream?r='+Date.now();A.load();A.play().catch(function(){})},2000);
-};
-A.volume=0.8;
-A.load();
+var cached='';try{cached=localStorage.getItem('radyo_ip')||''}catch(e){}
+if(cached&&cached.includes('://')){I.textContent='Radyo araniyor...';baglan(cached);setTimeout(function(){if(!ilk)tara()},3000)}
+else if(window.location.protocol==='file:'){I.textContent='Radyo araniyor...';tara()}
+else{baglan(window.location.origin)}
 })();
 </script>
-</body></html>
+</body>
+</html>
