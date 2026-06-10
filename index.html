@@ -117,7 +117,7 @@
 var A=document.getElementById('A'),I=document.getElementById('info'),
 M=document.getElementById('meta'),L=document.getElementById('lst'),
 VZ=document.getElementById('VZ'),U=document.getElementById('url');
-var F=false,S="",_q=0;
+var F=false,S="",_q=0,_r=false;
 var SI="192.168.1.39";
 var isPC=!/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent);
 
@@ -130,8 +130,8 @@ s.onload=function(){var d=window.RI||{};if(d.s){I.textContent=d.s;M.textContent=
 document.head.appendChild(s);},500);setInterval(function(){
 var s=document.createElement('script');
 s.src=S.replace('/stream','/info.js')+'?_='+Date.now();
-s.onload=function(){var d=window.RI||{};if(d.s)I.textContent=d.s;if(d.l!=null)L.textContent='Dinleyici: '+d.l;if(d.q!=null&&d.q!==_q){_q=d.q;var b=S.split('?')[0];A.src=b+'?r='+Date.now();A.load();A.play().catch(function(){})}try{s.parentNode.removeChild(s)}catch(e){}};
-document.head.appendChild(s);},3000)}
+s.onload=function(){var d=window.RI||{};if(d.s)I.textContent=d.s;if(d.l!=null)L.textContent='Dinleyici: '+d.l;if(d.q!=null&&d.q!==_q){_q=d.q;_r=true;A.pause();var b=S.split('?')[0];A.src='';A.load();A.src=b+'?r='+Date.now();A.autoplay=true;A.load();setTimeout(function(){_r=false},3000)}try{s.parentNode.removeChild(s)}catch(e){}};
+document.head.appendChild(s);},1000)}
 
 function bas(ip){
 if(F)return;F=true;S='http://'+ip+':8000/stream';
@@ -164,8 +164,9 @@ if(window.location.protocol==='file:'){
 A.onplay=function(){VZ.classList.add('active')};
 A.onpause=function(){VZ.classList.remove('active')};
 A.onerror=function(){
-if(A.readyState===0&&S){if(!isPC){u(S.replace('/stream','')+'/','Adrese tikla');M.textContent='Adrese tikla'}return}
-setTimeout(function(){if(S){var w=!A.paused;var b=S.split('?')[0];A.src=b+'?r='+Date.now();A.load();if(w)setTimeout(function(){A.play().catch(function(){})},600);}},2500);};
+if(_r)return;
+if(A.readyState===0&&S){if(!isPC){u(S.replace('/stream','')+'/','Adrese tikla');M.textContent='Adrese tikla'}else{setTimeout(function(){if(S&&!A.paused){var b=S.split('?')[0];A.src='';A.load();A.src=b+'?r='+Date.now();A.autoplay=true;A.load()}},1500)}return}
+setTimeout(function(){if(S){var w=!A.paused;var b=S.split('?')[0];A.src='';A.load();A.src=b+'?r='+Date.now();A.autoplay=true;A.load()}},2500);};
 A.volume=0.8;
 })();
 </script>
