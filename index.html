@@ -2,114 +2,266 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>MEHMET SAM | Okul Radyosu</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Okul Radyosu | Canlı</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#001a33;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;min-height:100vh}
-header{text-align:center;padding:24px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
-h1{font-size:24px;letter-spacing:2px;font-weight:800}
-h1 span{color:#007aff}
-.badge{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;color:#4da6ff;border:1px solid rgba(0,122,255,.25);background:rgba(0,122,255,.08)}
-.dot{width:8px;height:8px;border-radius:50%;background:#007aff;animation:pulse 1.5s}
-@keyframes pulse{0%{opacity:1}50%{opacity:.4}100%{opacity:1}}
-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 16px;text-align:center}
-#info{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;min-height:16px;font-weight:600}
-#info.ok{color:#4da6ff}
-#song{font-size:clamp(22px,5vw,42px);font-weight:900;margin-bottom:6px}
-#sub{color:#555;font-size:12px;letter-spacing:2px}
-.player{width:100%;max-width:420px;margin-top:24px;padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
-audio{width:100%;height:48px;border-radius:8px;outline:none}
-#man{display:none;margin-top:12px}
-#man input{width:100%;padding:10px;border:1px solid rgba(255,255,255,.15);border-radius:8px;background:rgba(255,255,255,.05);color:#fff;font-size:14px;outline:none;margin-bottom:6px}
-#man button{width:100%;padding:10px;border:none;border-radius:8px;background:#007aff;color:#fff;font-weight:700;cursor:pointer;font-size:14px}
-#lst{padding:14px;text-align:center;font-size:11px;color:#555;border-top:1px solid rgba(255,255,255,.04)}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: radial-gradient(circle at 50% 0%, #001a33 0%, #050505 60%, #000000 100%);
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 50px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #ffffff;
+    }
+
+    .logo span {
+        color: #007aff;
+    }
+
+    .live-badge {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(0, 122, 255, 0.15);
+        border: 1px solid rgba(0, 122, 255, 0.3);
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #4da6ff;
+        letter-spacing: 1px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #007aff;
+        box-shadow: 0 0 15px #007aff;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7); }
+        70% { box-shadow: 0 0 0 15px rgba(0, 122, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
+    }
+
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    .visualizer {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 60px;
+        margin-bottom: 40px;
+    }
+
+    .bar {
+        width: 8px;
+        background: #007aff;
+        border-radius: 4px 4px 0 0;
+        animation: bounce 1.2s ease-in-out infinite;
+        box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+    }
+
+    .bar:nth-child(1) { height: 20px; animation-delay: 0.1s; }
+    .bar:nth-child(2) { height: 50px; animation-delay: 0.3s; }
+    .bar:nth-child(3) { height: 30px; animation-delay: 0s; }
+    .bar:nth-child(4) { height: 60px; animation-delay: 0.2s; }
+    .bar:nth-child(5) { height: 40px; animation-delay: 0.4s; }
+
+    @keyframes bounce {
+        0%, 100% { transform: scaleY(0.5); }
+        50% { transform: scaleY(1); }
+    }
+
+    .song-info {
+        max-width: 800px;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+
+    #meta {
+        font-size: 16px;
+        color: #888888;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    #info {
+        font-size: clamp(32px, 5vw, 64px);
+        font-weight: 900;
+        line-height: 1.2;
+        color: #ffffff;
+        margin-bottom: 20px;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+        word-wrap: break-word;
+    }
+
+    .subtitle {
+        color: #777777;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .player-section {
+        width: 100%;
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 30px;
+        border-radius: 24px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    audio {
+        width: 100%;
+        height: 54px;
+        border-radius: 12px;
+        outline: none;
+    }
+
+    audio::-webkit-media-controls-panel {
+        background-color: #ffffff;
+    }
+
+    footer {
+        padding: 20px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin-top: auto;
+    }
+
+    #lst {
+        display: inline-block;
+        background: rgba(0, 122, 255, 0.1);
+        color: #4da6ff;
+        padding: 8px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid rgba(0, 122, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        header { padding: 20px; flex-direction: column; gap: 15px; }
+        .player-section { padding: 20px; border-radius: 16px; width: 90%; }
+        main { padding: 20px 10px; }
+    }
 </style>
 </head>
 <body>
-<header><h1>MEHMET <span>SAM</span></h1><div class="badge"><span class="dot"></span>CANLI YAYIN</div></header>
-<main>
-<div id="info">Basliyor</div>
-<div id="song">SAM RADYO</div>
-<div id="sub">MEHMET SAM</div>
-<div class="player">
-<audio id="A" controls playsinline webkit-playsinline preload="auto"></audio>
-<div id="man"><input id="ip" placeholder="IP:8000"><button id="btn">BAGLAN</button></div>
-</div>
-</main>
-<div id="lst">Dinleyici: --</div>
+
+    <header>
+        <div class="logo">MEHMET <span>ŞAM</span></div>
+        <div class="live-badge">
+            <div class="dot"></div>
+            CANLI YAYIN
+        </div>
+    </header>
+
+    <main>
+        <div class="visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <div class="song-info">
+            <div id="meta">Sunucu Taranıyor...</div>
+            <h1 id="info">Bağlantı Bekleniyor</h1>
+            <p class="subtitle">ŞAMRADYO</p>
+        </div>
+
+        <div class="player-section">
+            <audio id="audio" controls preload="auto"></audio>
+        </div>
+    </main>
+
+    <footer>
+        <div id="lst">Dinleyici: Hesaplanıyor...</div>
+    </footer>
+
 <script>
-(function(){
-var A=document.getElementById('A'),S=document.getElementById('song'),I=document.getElementById('info'),L=document.getElementById('lst');
-var M=document.getElementById('man'),IP=document.getElementById('ip'),BT=document.getElementById('btn');
-var sv="",_q=-1,ilk=false,busy=false;
+var A=document.getElementById('audio'),I=document.getElementById('info'),
+M=document.getElementById('meta'),L=document.getElementById('lst');
 
-function oyna(){
-A.play().then(function(){if(!ilk){ilk=true;I.textContent='SU AN CALIYOR';I.className='ok'}}).catch(function(){});
+function guncel(h){
+  var s=document.createElement('script');
+  s.src=h+'/info.js?_='+Date.now();
+  s.onload=function(){
+    var d=window.RI||{};
+    if(d.s&&d.s!='-'){I.textContent=d.s;M.textContent='ŞU AN ÇALIYOR'}
+    if(d.l!=null)L.textContent='Yayındaki Dinleyici: '+d.l;
+  };
+  document.head.appendChild(s);
 }
 
-function poll(){
-setInterval(function(){
-var s=document.createElement('script');
-s.src=sv+'/info.js?_='+Date.now();
-s.onload=function(){try{
-var d=window.RI||{};
-if(d.s&&d.s!==S.textContent){S.textContent=d.s;I.textContent='SU AN CALIYOR';I.className='ok'}
-if(d.l!=null)L.textContent='Dinleyici: '+d.l;
-if(d.q!=null&&d.q!==_q){_q=d.q;if(d.s&&ilk){A.src=sv+'/stream?r='+Date.now();A.load();setTimeout(oyna,100)}}
-}catch(e){}s.remove()};
-document.head.appendChild(s);},2000);
+var o=window.location.origin;
+if(o&&o!='null'&&o.indexOf('http')===0){
+  A.preload='auto';M.textContent='Bağlanıyor...';
+  A.src=o+'/stream';A.load();
+  A.addEventListener('canplay',function(){A.play().catch(function(){})});
+  guncel(o);setInterval(function(){guncel(o)},3000);
+  A.onerror=function(){setTimeout(function(){A.src=o+'/stream?r='+Date.now();A.load()},2000)};
+}else{
+  var F=false,S='',t=0,
+  N=['localhost','127.0.0.1'];
+  for(var a=1;a<=254;a++){N.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a)}
+  function T(){
+    if(F||t>=N.length)return;
+    for(var i=0;i<20&&t<N.length;i++,t++)(function(ip){
+      var s=document.createElement('script');
+      s.src='http://'+ip+':8000/info.js?_='+Date.now();
+      s.onload=function(){
+        if(!F){F=true;S='http://'+ip+':8000/stream';
+        A.src=S;A.load();M.textContent='Yükleniyor...';
+        var h='http://'+ip+':8000';guncel(h);
+        setInterval(function(){guncel(h)},3000);
+        A.onerror=function(){setTimeout(function(){A.src=S+'?r='+Date.now();A.load()},2000)}}
+      };
+      document.head.appendChild(s);
+    })(N[t]);
+    if(!F)setTimeout(T,100);
+  }
+  T();
 }
-
-function baglan(url){
-sv=url;busy=true;M.style.display='none';
-try{localStorage.setItem('radyo_ip',url)}catch(e){}
-A.src=sv+'/stream';A.load();
-A.oncanplay=function(){oyna()};
-I.textContent='Baglaniyor...';
-setTimeout(function(){if(!ilk)oyna()},3000);
-poll();
-}
-
-function tara(){
-var ips=['localhost','127.0.0.1'];
-if(window.location.hostname&&window.location.hostname!=='localhost')ips.push(window.location.hostname);
-for(var a=1;a<=80;a++){ips.push('192.168.1.'+a);ips.push('192.168.0.'+a)}
-var k=0,act=0;
-function next(){
-while(act<5&&k<ips.length){var ip=ips[k++];act++;
-(function(i){var x=new XMLHttpRequest();
-x.open('GET','http://'+i+':8000/info.js?_='+Date.now(),true);
-x.timeout=500;
-x.onload=function(){act--;if(x.status===200&&!busy)baglan('http://'+i+':8000');else next()};
-x.onerror=function(){act--;next()};
-x.ontimeout=function(){act--;next()};
-x.send()})(ip);}
-if(act===0&&k>=ips.length&&!busy){I.textContent='Radyo kapali - IP gir';M.style.display='block'}
-}
-next();
-}
-
-BT.onclick=function(){var v=IP.value.trim();if(!v)return;if(!v.includes(':'))v=v+':8000';if(!v.startsWith('http'))v='http://'+v;baglan(v)};
-IP.onkeydown=function(e){if(e.key==='Enter')BT.click()};
-
-A.onplay=function(){I.textContent='SU AN CALIYOR';I.className='ok';ilk=true};
-A.onerror=function(){if(sv&&!busy){setTimeout(function(){A.src=sv+'/stream?r='+Date.now();A.load();setTimeout(oyna,500)},2000)}};
-A.volume=0.8;
-
-var c='';try{c=localStorage.getItem('radyo_ip')||''}catch(e){}
-if(window.location.protocol==='file:'){
-if(c){baglan(c);setTimeout(function(){if(!ilk)tara()},3000)}
-else tara();
-} else {
-var x=new XMLHttpRequest();
-x.open('GET','config.json?_='+Date.now(),true);
-x.timeout=3000;
-x.onload=function(){if(x.status===200){try{var d=JSON.parse(x.responseText);if(d.stream_url&&d.stream_url.includes('://')){baglan(d.stream_url.replace('/stream',''));return}}catch(e){}}tara()};
-x.onerror=function(){tara()};
-x.send();
-}
-})();
 </script>
+
 </body>
 </html>
