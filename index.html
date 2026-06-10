@@ -177,7 +177,6 @@
 </style>
 </head>
 <body>
-
     <header>
         <div class="logo">MEHMET <span>SAM</span></div>
         <div class="live-badge">
@@ -185,7 +184,6 @@
             CANLI YAYIN
         </div>
     </header>
-
     <main>
         <div class="visualizer" id="VZ">
             <div class="bar"></div>
@@ -194,22 +192,18 @@
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-
         <div class="song-info">
             <div id="meta">Baglaniyor</div>
             <h1 id="info">--</h1>
             <p class="subtitle">SAM RADYO</p>
         </div>
-
         <div class="player-section">
             <audio id="A" controls preload="auto" playsinline webkit-playsinline></audio>
         </div>
     </main>
-
     <footer>
         <div id="lst">Dinleyici: --</div>
     </footer>
-
 <script>
 (function(){
 var A=document.getElementById('A'),I=document.getElementById('info'),
@@ -217,12 +211,12 @@ M=document.getElementById('meta'),L=document.getElementById('lst'),
 VZ=document.getElementById('VZ');
 var FOUND=false,STREAM="";
 
-var SI="";
-if(SI){bul(SI+':8000')}else{setTimeout(tara,200)}
+var SI="192.168.1.39";
+if(SI){baslat(SI)}else{setTimeout(tara,200)}
 
-function bul(h){
+function baslat(ip){
   if(FOUND)return;FOUND=true;
-  STREAM='http://'+h+'/stream';
+  STREAM='http://'+ip+':8000/stream';
   A.src=STREAM;A.load();
   M.textContent='Hazir, oynat tusuna bas';M.className='ready';
   guncel();setInterval(guncel,3000);
@@ -234,60 +228,37 @@ function guncel(){
     var d=window.RI||{};
     if(d.s){I.textContent=d.s;M.textContent='SU AN CALIYOR';M.className='ready'}
     if(d.l!=null)L.textContent='Dinleyici: '+d.l;
-    try{s.parentNode.removeChild(s)}catch(e){}
-  };
+    try{s.parentNode.removeChild(s)}catch(e){}};
   document.head.appendChild(s);
 }
-
 function tara(){
   if(FOUND)return;
   var H=['localhost','127.0.0.1'];
-  for(var a=1;a<=254;a++){
-    H.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,
-           '192.168.2.'+a,'192.168.10.'+a);
-  }
-  var idx=0, done=false;
-
-  function bitir(){
-    if(done||FOUND)return;done=true;
-    M.textContent='Sunucu bulunamadi';
-    I.textContent='Telefonda acmak icin PC terminaline bak';
-  }
+  for(var a=1;a<=254;a++)H.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,'192.168.2.'+a,'192.168.10.'+a);
+  var idx=0,done=false;
+  function bitir(){if(done||FOUND)return;done=true;M.textContent='Sunucu bulunamadi - once sec.py calistir';}
   function dene(ip){
     var s=document.createElement('script');
     s.src='http://'+ip+':8000/info.js?_='+Date.now();
-    s.onload=function(){bul(ip+':8000')};
-    document.head.appendChild(s);
-    var img=new Image();
-    img.onload=function(){bul(ip+':8000')};
-    img.src='http://'+ip+':8000/ping?_='+Date.now();
-  }
+    s.onload=function(){baslat(ip)};document.head.appendChild(s);}
   function next(){
     if(FOUND||idx>=H.length){if(!FOUND)bitir();return}
     for(var i=0;i<10&&idx<H.length;i++,idx++)dene(H[idx]);
-    setTimeout(next,80);
-  }
+    setTimeout(next,80);}
   setTimeout(function(){if(!FOUND)bitir()},15000);
   next();
 }
-
 A.onplay=function(){VZ.classList.add('active')};
 A.onpause=function(){VZ.classList.remove('active')};
 A.onerror=function(){
   M.textContent='Baglanti koptu, yeniden...';M.className='';
   setTimeout(function(){
     if(STREAM){
-      var was=!A.paused;
-      var base=STREAM.split('?')[0];
+      var was=!A.paused;var base=STREAM.split('?')[0];
       A.src=base+'?r='+Date.now();A.load();
       if(was)setTimeout(function(){A.play().catch(function(){})},600);
-      M.textContent='Yeniden baglandi';M.className='ready';
-    }
-  },2500);
-};
-
+      M.textContent='Yeniden baglandi';M.className='ready';}},2500);};
 A.volume=0.8;
 })();
 </script>
-
 </body></html>
