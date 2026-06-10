@@ -118,7 +118,8 @@ var A=document.getElementById('A'),I=document.getElementById('info'),
 M=document.getElementById('meta'),L=document.getElementById('lst'),
 VZ=document.getElementById('VZ'),U=document.getElementById('url');
 var F=false,S="",_q=0;
-var SI="";
+var SI="192.168.1.39";
+var isPC=!/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent);
 
 function u(u,t){U.style.display='block';U.innerHTML='<a href="'+u+'" target="_blank">'+u+'</a><span>'+t+'</span>';}
 
@@ -135,7 +136,7 @@ document.head.appendChild(s);},3000)}
 function bas(ip){
 if(F)return;F=true;S='http://'+ip+':8000/stream';
 A.src=S;A.load();M.textContent='Baglaniyor...';U.style.display='none';
-setTimeout(function(){if(!F)return;if(A.readyState===0){u('http://'+ip+':8000/','Telefonda bu adresi tarayicida ac');M.textContent='Telefonda adrese tikla';I.textContent='Radyoyu ac';}},4000);
+if(!isPC)setTimeout(function(){if(!F)return;if(A.readyState===0){u('http://'+ip+':8000/','Radyoyu acmak icin tikla');M.textContent='Baglanti yok';I.textContent='Radyoyu ac';}},3000);
 g();}
 
 function tara(){
@@ -143,14 +144,17 @@ if(F)return;
 var H=['localhost','127.0.0.1'];
 for(var a=1;a<=254;a++)H.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,'192.168.2.'+a,'192.168.10.'+a);
 var k=0,z=false;
-function bit(){if(z||F)return;z=true;M.textContent='Baglanti yok';if(SI)u('http://'+SI+':8000/','Telefonda bu adresi tarayicida ac');}
+function bit(){if(z||F)return;z=true;if(!isPC&&SI)u('http://'+SI+':8000/','Radyoyu acmak icin tikla');M.textContent=SI?'Baglanti yok':'Radyo kapali';if(!SI)I.textContent='python sec.py calistir';}
 function de(ip,t){t.onloadeddata=function(){if(!F)bas(ip)};t.src='http://'+ip+':8000/stream';t.load();}
 function next(){if(F||k>=H.length){if(!F)bit();return}for(var i=0;i<8&&k<H.length;i++,k++)de(H[k],new Audio());setTimeout(next,1500);}
-setTimeout(function(){if(!F)bit()},6000);
+setTimeout(function(){if(!F)bit()},isPC?12000:6000);
 next();}
 
 if(window.location.protocol==='file:'){
-  if(SI){bas(SI)}else{M.textContent='Radyo araniyor...';tara()}
+  if(!isPC&&SI){bas(SI)}
+  else if(!isPC){M.textContent='Radyo kapali';I.textContent='Telefonda http:// adresini kullan';if(!SI){M.textContent='Radyo kapali';I.textContent='Once pc de python sec.py calistir'}}
+  else if(SI){bas(SI)}
+  else{M.textContent='Radyo araniyor...';tara()}
 } else if(SI){
   bas(SI)
 } else {
@@ -160,7 +164,7 @@ if(window.location.protocol==='file:'){
 A.onplay=function(){VZ.classList.add('active')};
 A.onpause=function(){VZ.classList.remove('active')};
 A.onerror=function(){
-if(A.readyState===0&&S){u(S.replace('/stream','')+'/','Adrese tikla');M.textContent='Adrese tikla';return}
+if(A.readyState===0&&S){if(!isPC){u(S.replace('/stream','')+'/','Adrese tikla');M.textContent='Adrese tikla'}return}
 setTimeout(function(){if(S){var w=!A.paused;var b=S.split('?')[0];A.src=b+'?r='+Date.now();A.load();if(w)setTimeout(function(){A.play().catch(function(){})},600);}},2500);};
 A.volume=0.8;
 })();
