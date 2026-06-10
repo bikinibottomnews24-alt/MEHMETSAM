@@ -196,7 +196,7 @@
         </div>
 
         <div class="song-info">
-            <div id="meta">Sunucu araniyor</div>
+            <div id="meta">Baglaniyor</div>
             <h1 id="info">--</h1>
             <p class="subtitle">SAM RADYO</p>
         </div>
@@ -217,12 +217,14 @@ M=document.getElementById('meta'),L=document.getElementById('lst'),
 VZ=document.getElementById('VZ');
 var FOUND=false,STREAM="";
 
-function bul(host){
+var SI="";
+if(SI){bul(SI+':8000')}else{setTimeout(tara,200)}
+
+function bul(h){
   if(FOUND)return;FOUND=true;
-  STREAM='http://'+host+'/stream';
+  STREAM='http://'+h+'/stream';
   A.src=STREAM;A.load();
-  M.textContent='Baglanti hazir, oynat tusuna bas';
-  M.className='ready';
+  M.textContent='Hazir, oynat tusuna bas';M.className='ready';
   guncel();setInterval(guncel,3000);
 }
 function guncel(){
@@ -237,27 +239,38 @@ function guncel(){
   document.head.appendChild(s);
 }
 
-// Scanner
-var HOSTS=['localhost','127.0.0.1'];
-for(var a=1;a<=254;a++){
-  HOSTS.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,
-             '192.168.2.'+a,'192.168.10.'+a);
-}
-var idx=0;
 function tara(){
-  if(FOUND||idx>=HOSTS.length)return;
-  for(var i=0;i<15&&idx<HOSTS.length;i++,idx++){
-    (function(ip){
-      var s=document.createElement('script');
-      s.src='http://'+ip+':8000/info.js?_='+Date.now();
-      s.onload=function(){bul(ip+':8000')};
-      document.head.appendChild(s);
-    })(HOSTS[idx]);
+  if(FOUND)return;
+  var H=['localhost','127.0.0.1'];
+  for(var a=1;a<=254;a++){
+    H.push('192.168.1.'+a,'192.168.0.'+a,'10.0.0.'+a,
+           '192.168.2.'+a,'192.168.10.'+a);
   }
-  if(!FOUND)setTimeout(tara,100);
+  var idx=0, done=false;
+
+  function bitir(){
+    if(done||FOUND)return;done=true;
+    M.textContent='Sunucu bulunamadi';
+    I.textContent='Telefonda acmak icin PC terminaline bak';
+  }
+  function dene(ip){
+    var s=document.createElement('script');
+    s.src='http://'+ip+':8000/info.js?_='+Date.now();
+    s.onload=function(){bul(ip+':8000')};
+    document.head.appendChild(s);
+    var img=new Image();
+    img.onload=function(){bul(ip+':8000')};
+    img.src='http://'+ip+':8000/ping?_='+Date.now();
+  }
+  function next(){
+    if(FOUND||idx>=H.length){if(!FOUND)bitir();return}
+    for(var i=0;i<10&&idx<H.length;i++,idx++)dene(H[idx]);
+    setTimeout(next,80);
+  }
+  setTimeout(function(){if(!FOUND)bitir()},15000);
+  next();
 }
 
-// Audio events
 A.onplay=function(){VZ.classList.add('active')};
 A.onpause=function(){VZ.classList.remove('active')};
 A.onerror=function(){
@@ -274,9 +287,7 @@ A.onerror=function(){
 };
 
 A.volume=0.8;
-setTimeout(function(){if(!FOUND)tara()},300);
 })();
 </script>
 
-</body>
-</html>
+</body></html>
