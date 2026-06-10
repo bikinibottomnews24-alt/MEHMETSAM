@@ -34,46 +34,30 @@ var A=document.getElementById('audio'),I=document.getElementById('info'),
 M=document.getElementById('meta'),L=document.getElementById('lst');
 var FOUND=false, STREAM="";
 
-// once localhost dene
-try{
-  var x=new XMLHttpRequest();
-  x.open('GET','http://localhost:8000/ping?_='+Date.now());
-  x.onload=function(){if(x.responseText=='ok'){bul('localhost:8000');return}};
-  x.send();
-}catch(e){}
-
-// subnet tara
-var SUBNETS=[];
-for(var a=1;a<=254;a++){
-  SUBNETS.push('192.168.1.'+a);
-  SUBNETS.push('192.168.0.'+a);
+var SUBNETS=['localhost','127.0.0.1']; for(var a=1;a<=254;a++){
+  SUBNETS.push('192.168.1.'+a);SUBNETS.push('192.168.0.'+a);
   SUBNETS.push('10.0.0.'+a);
 }
 var tried=0;
-
 function tara(){
   if(FOUND||tried>=SUBNETS.length)return;
   for(var i=0;i<15&&tried<SUBNETS.length;i++,tried++){
-    var ip=SUBNETS[tried];
     (function(ip){
       var s=document.createElement('script');
       s.src='http://'+ip+':8000/info.js?_='+Date.now();
       s.onload=function(){bul(ip+':8000')};
       document.head.appendChild(s);
-    })(ip);
+    })(SUBNETS[tried]);
   }
   if(!FOUND)setTimeout(tara,200);
 }
-
 function bul(host){
   if(FOUND)return;
   FOUND=true;STREAM='http://'+host+'/stream';
-  M.textContent='Bulundu! Play tusuna bas';
-  bilgi();
-  setInterval(bilgi,3000);
+  A.src=STREAM;M.textContent='Bulundu! Playe bas';guncel();
+  setInterval(guncel,3000);
 }
-
-function bilgi(){
+function guncel(){
   var s=document.createElement('script');
   s.src=STREAM.replace('/stream','/info.js')+'?_='+Date.now();
   s.onload=function(){
@@ -83,18 +67,9 @@ function bilgi(){
   };
   document.head.appendChild(s);
 }
-
 A.onerror=function(){
-  M.textContent='Baglanti sorunu...';
-  setTimeout(function(){if(STREAM){A.src=STREAM+'?r='+Date.now();A.load()}},3000);
+  setTimeout(function(){if(STREAM){A.src=STREAM+'?r='+Date.now()}},3000);
 };
-
-setTimeout(function(){
-  if(!FOUND){M.textContent='Ag taranıyor...';tara()}
-},800);
-
-A.onplay=function(){
-  if(STREAM&&A.src!=STREAM){A.src=STREAM;A.load()}
-};
+setTimeout(function(){if(!FOUND){tara()}},800);
 </script>
 </body></html>
